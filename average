@@ -1,0 +1,19 @@
+import sqlite3
+
+connection = sqlite3.connect('mydatabase.db')
+cursor = connection.cursor()
+# tablular
+cursor.execute('''CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY, name TEXT, age INTEGER)''')
+
+# Inserting data
+cursor.execute("INSERT INTO users (name, age) VALUES (?, ?)", ("John Doe", 30))
+cursor.execute("INSERT INTO users (name, age) VALUES (?, ?)", ("Jane Smith", 25))
+
+# the change wanted
+connection.commit()
+cursor.execute("SELECT * FROM users")
+rows = cursor.fetchall()
+
+for row in rows:
+    print(row)
+connection.close()
